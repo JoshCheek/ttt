@@ -7,7 +7,7 @@ When complete, TTT will be a Tic Tac Toe lib, as well as some sort of interface 
 Iterations For the Lib
 ----------------------
 
-Currently on **Iteration 2**.
+Currently on **Iteration 3**.
 
 ### Iteration 1 - basic functionality
 
