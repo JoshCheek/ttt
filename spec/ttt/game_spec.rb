@@ -48,6 +48,7 @@ module TTT
         subject { game }
         its(:board) { should == '120120100' }
         it { should be_over }
+        it { should_not be_a_tie }
         its(:turn)  { should be nil }
         specify('player1 should be the winner') { subject.status(1).should be :wins }
         specify('player2 should be the loser')  { subject.status(2).should be :loses }
@@ -61,6 +62,7 @@ module TTT
         before { game.mark 8 }
         subject { game }
         it { should be_over }
+        it { should_not be_a_tie }
         its(:board) { should == '121120020' }
         its(:turn)  { should be nil }
         specify('player1 should be the loser')  { subject.status(1).should be :loses }
@@ -75,6 +77,7 @@ module TTT
         before { game.mark 7 }
         subject { game }
         it { should be_over }
+        it { should be_a_tie }
         its(:board) { should == '121221112' }
         its(:turn)  { should be nil }
         specify('player1 should tie') { subject.status(1).should be :ties }
@@ -102,6 +105,7 @@ module TTT
         context configuration do
           subject { Game.new configuration }
           it { should be_over }
+          it { should_not be_a_tie }
           its(:winner) { should be winner }
           specify { subject.status(winner).should be :wins }
         end
@@ -121,12 +125,14 @@ module TTT
         context configuration do
           subject { Game.new configuration }
           it { should_not be_over }
+          it { should_not be_a_tie }
           its(:winner) { should be nil }
         end
       end
       context "121221112, a tied state" do
         subject { Game.new '121221112' }
         it { should be_over }
+        it { should be_a_tie }
         its(:winner) { should be nil }
         specify("status(1) should be :ties") { subject.status(1).should be :ties }
         specify("status(2) should be :ties") { subject.status(2).should be :ties }

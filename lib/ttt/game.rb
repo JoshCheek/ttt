@@ -33,6 +33,10 @@ module TTT
                                   :ties
     end
     
+    def tie?
+      over? && !winner
+    end
+    
     def winner
       [ [0, 1, 2],
         [3, 4, 5],
