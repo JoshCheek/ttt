@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'ttt'
+
+
+game = TTT::Game.new
+
+loop do
+  puts game.board(:ttt)
+  game.mark gets.to_i
+end
