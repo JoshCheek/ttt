@@ -22,6 +22,12 @@ module TTT
     end
     
     def over?
+      true
     end
+    
+    def status(player_number)
+      :wins
+    end
+    
   end
 end

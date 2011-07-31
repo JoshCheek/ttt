@@ -53,5 +53,31 @@ module TTT
       #   specify('player2 should be the loser')  { subject.status(2).should be :loses }
       # end
     end
+    
+    describe 'winning states' do
+      [ ['111000000', 1],
+        ['000111000', 1],
+        ['000000111', 1],
+        ['222000000', 2],
+        ['000222000', 2],
+        ['000000222', 2],
+        ['100100100', 1],
+        ['010010010', 1],
+        ['001001001', 1],
+        ['200200200', 2],
+        ['020020020', 2],
+        ['002002002', 2],
+        ['100010001', 1],
+        ['001010100', 1],
+        ['200020002', 2],
+        ['002020200', 2], ].each do |configuration, winner|
+        specify "#{configuration} should be a winning state for #{winner}" do
+          game = Game.new configuration
+          game.should be_over
+          game.status(winner).should be :wins
+        end
+      end
+    end
+    
   end
 end
