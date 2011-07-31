@@ -29,5 +29,11 @@ module TTT
       end
     end
     
+    describe 'board(:ttt)' do
+      it 'renders the board in tic-tac-toe format' do
+        @game = Game.new 'abcdefghi'
+        @game.board(:ttt).should == "  a | b | c  \n----|---|----\n  d | e | f  \n----|---|----\n  g | h | i  "
+      end
+    end
   end
 end
