@@ -40,6 +40,11 @@ I will think about this more later. Probably a simple CLI at first, then maybe a
 
 
 
+Possible Future Features
+------------------------
+
+* Strict mode, which raises errors for common types of invalid behaviour
+
 
 Author
 ------
