@@ -13,3 +13,7 @@ end
 When /^I create a game with "([^"]*)"$/ do |configuration|
   @game = TTT::Game.new configuration
 end
+
+When /^I mark position (\d+)$/ do |position|
+  @game.mark position.to_i
+end
