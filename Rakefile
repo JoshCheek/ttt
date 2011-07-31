@@ -1,4 +1,4 @@
-task :'simple-cli' do
+task :simple_cli do
   $:.unshift File.expand_path('../lib', __FILE__)
   require 'ttt'
   game = TTT::Game.new
