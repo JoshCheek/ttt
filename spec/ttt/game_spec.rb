@@ -157,6 +157,17 @@ module TTT
       end
     end
     
+    describe '#pristine_mark' do
+      let(:game) { Game.new '000000000' }
+      subject { game.pristine_mark 1 }
+      it { should be_an_instance_of Game }
+      its(:board) { should == '100000000' }
+      it 'leaves the original in its current condition' do
+        subject
+        game.board.should == '000000000'
+      end
+    end
+    
     describe '.congruent?' do
       [ %w[100000000 001000000 000000100 000000001],
         %w[120000000 100200000],

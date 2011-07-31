@@ -59,6 +59,12 @@ module TTT
       board.each_char.with_index(1).select { |char, _| char != '1' && char != '2' }.map(&:last)
     end
     
+    def pristine_mark(position)
+      marked = self.class.new board.dup
+      marked.mark position
+      marked
+    end
+    
   end
 end
 
