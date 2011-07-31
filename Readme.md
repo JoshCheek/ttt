@@ -7,13 +7,13 @@ When complete, TTT will be a Tic Tac Toe lib, as well as some sort of interface 
 Iterations For the Lib
 ----------------------
 
-Currently on **Iteration 1**.
+Currently on **Iteration 2**.
 
 ### Iteration 1 - basic functionality
 
 * Start a game
 * Interface can mark the board
-
+* Render to tic-tac-toe format
 
 ### Iteration 2 - Players can play the game
 

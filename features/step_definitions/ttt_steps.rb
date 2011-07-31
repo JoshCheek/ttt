@@ -17,3 +17,7 @@ end
 When /^I mark position (\d+)$/ do |position|
   @game.mark position.to_i
 end
+
+Then /^board\(:ttt\) will be "([^"]*)"$/ do |baord|
+  @game.board(:ttt).should == board
+end
