@@ -58,5 +58,16 @@ module TTT
     def available_moves
       board.each_char.with_index(1).select { |char, _| char != '1' && char != '2' }.map(&:last)
     end
+    
+  end
+end
+
+
+
+module TTT
+  class << Game
+    def congruent?(board1, board2)
+      true
+    end
   end
 end

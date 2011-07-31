@@ -156,5 +156,21 @@ module TTT
         end
       end
     end
+    
+    describe '.congruent?' do
+      [ %w[100000000 001000000 000000100 000000001],
+        %w[120000000 100200000],
+        %w[100020000 001020000 000020100 000020001],
+        %w[120000001 100200001],
+        %w[100020100 000020101 001200001 101020000],
+      ].each do |boards|
+        specify "knows #{boards.inspect} are all congruent" do
+          boards.each do |board1|
+            boards.each { |board2| TTT::Game.should be_congruent(board1, board2) }
+          end
+        end
+      end
+    end
+    
   end
 end
