@@ -99,10 +99,11 @@ module TTT
         ['001010100', 1],
         ['200020002', 2],
         ['002020200', 2], ].each do |configuration, winner|
-        specify "#{configuration} should be a winning state for #{winner}" do
-          game = Game.new configuration
-          game.should be_over
-          game.status(winner).should be :wins
+        context configuration do
+          subject { Game.new configuration }
+          it { should be_over }
+          its(:winner) { should be winner }
+          specify { subject.status(winner).should be :wins }
         end
       end
     end
@@ -117,15 +118,18 @@ module TTT
         '121220010',
         '121221010',
         '121221012', ].each do |configuration|
-        specify "#{configuration} should not be a finished state" do
-          Game.new(configuration).should_not be_over
+        context configuration do
+          subject { Game.new configuration }
+          it { should_not be_over }
+          its(:winner) { should be nil }
         end
       end
-      specify "121221112 should be a tied state" do
-        game = Game.new '121221112'
-        game.should be_over
-        game.status(1).should be :ties
-        game.status(2).should be :ties
+      context "121221112, a tied state" do
+        subject { Game.new '121221112' }
+        it { should be_over }
+        its(:winner) { should be nil }
+        specify("status(1) should be :ties") { subject.status(1).should be :ties }
+        specify("status(2) should be :ties") { subject.status(2).should be :ties }
       end
     end
     
