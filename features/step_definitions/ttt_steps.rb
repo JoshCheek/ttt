@@ -33,3 +33,7 @@ end
 Then /^player(\d+) (wins|loses|ties)$/ do |player, status|
   @game.status(player.to_i).should == status.to_sym
 end
+
+Given /^a tie game$/ do
+  @game = TTT::Game.new '121221112'
+end
