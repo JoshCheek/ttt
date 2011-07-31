@@ -4,13 +4,16 @@ Feature: Computer player
   As a player
   I want an unbeatable computer opponent
   
-  The following scenarios should cover every possible board by considering at least
-  one board from every possible congruence class of boards. (ie if two game boards
-  are congruent, such as the two below, which can be made the same by rotating or
-  mirroring, then they are equivalent, and we will only consider one of them.) This
-  is because there are 9! = 362880 possible game boards.
+  The following scenarios should cover a sampling of possible boards. As there are
+  765 possible game possible congruence classes of boards, I won't attempt to cover
+  them all, but will verify that the computer plays optimally in a number of common
+  situations (two game boards are in a congruence class, such as the two below, 
+  if one can be turned into the other by rotating or mirroring).
   
-  Example of congruent boards:
+  For a list of all congruent states, there are some rake tasks which compute them
+  and explore some of their properties.
+  
+  Example of congruent boards (rotate the left board 90 degrees to get the right board):
   
    1 |   |        |   | 1 
   ---|---|---  ---|---|---
