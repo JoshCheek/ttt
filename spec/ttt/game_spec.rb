@@ -79,5 +79,27 @@ module TTT
       end
     end
     
+    describe 'non winning states' do
+      [ '000000000',
+        '100000000',
+        '100020000',
+        '101020000',
+        '121020000',
+        '121020010',
+        '121220010',
+        '121221010',
+        '121221012', ].each do |configuration|
+        specify "#{configuration} should not be a finished state" do
+          Game.new(configuration).should_not be_over
+        end
+      end
+      specify "121221112 should be a tied state" do
+        game = Game.new '121221112'
+        game.should be_over
+        game.status(1).should be :ties
+        game.status(2).should be :ties
+      end
+    end
+    
   end
 end

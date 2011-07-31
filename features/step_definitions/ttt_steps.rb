@@ -27,7 +27,11 @@ Then /^board\(:ttt\) will be "([^"]*)"$/ do |board|
 end
 
 Then /^the game is (not )?over$/ do |not_over|
-  @game.over?.should == !not_over
+  if not_over
+    @game.should_not be_over
+  else
+    @game.should be_over
+  end
 end
 
 Then /^player(\d+) (wins|loses|ties)$/ do |player, status|

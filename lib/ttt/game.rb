@@ -22,11 +22,32 @@ module TTT
     end
     
     def over?
-      true
+      winner || board.each_char.all? { |char| char == '1' || char == '2' }
     end
     
     def status(player_number)
-      :wins
+      return nil unless over?
+      (winner == player_number) ? :wins  :
+                         winner ? :loses :
+                                  :ties
+    end
+    
+    def winner
+      [ [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ].each do |pos1, pos2, pos3|
+        next unless board[pos1] == board[pos2]
+        next unless board[pos1] == board[pos3]
+        next unless board[pos1] =~ /^(1|2)$/
+        return board[pos1].to_i
+      end
+      nil
     end
     
   end
