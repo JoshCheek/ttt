@@ -6,6 +6,7 @@ module TTT
     
     def self.move_for(configuration, player, possible_boards, description)
       it "takes moves correctly when #{description}" do
+        pending
         game = Game.new configuration
         computer = ComputerPlayer.new game
         computer.take_turn
@@ -50,5 +51,14 @@ module TTT
         ['100000000', 2, ['100020000']                                        , 'makes move with lowest probability of losing in future' ],
       ]
     end
+    
+    describe '#best_move' do
+      it 'powers the #take_turn method by finding the best move' do
+        game = Game.new '000000000'
+        computer = ComputerPlayer.new game
+        [1, 3, 7, 9].should include computer.best_move
+      end
+    end
+    
   end
 end
