@@ -9,6 +9,10 @@ task :simple_cli do
   puts "The game is over.", (game.tie? ? "No one wins" : "Player #{game.winner} wins.")
 end
 
+task :console do
+  sh 'pry -I lib -r ttt'
+end
+
 task :cuke do
   sh 'cucumber'
 end
