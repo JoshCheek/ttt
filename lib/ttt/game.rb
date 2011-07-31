@@ -20,5 +20,8 @@ module TTT
       return @board unless style
       "  %s | %s | %s  \n----|---|----\n  %s | %s | %s  \n----|---|----\n  %s | %s | %s  " % @board.gsub('0', ' ').split('')
     end
+    
+    def over?
+    end
   end
 end
