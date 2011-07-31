@@ -139,5 +139,22 @@ module TTT
       end
     end
     
+    describe '#available_moves' do
+      { '000000000' => [1,2,3,4,5,6,7,8,9],
+        '100000000' => [  2,3,4,5,6,7,8,9],
+        '100020000' => [  2,3,4,  6,7,8,9],
+        '101020000' => [  2,  4,  6,7,8,9],
+        '121020000' => [      4,  6,7,8,9],
+        '121020010' => [      4,  6,7,  9],
+        '121220010' => [          6,7,  9],
+        '121221010' => [            7,  9],
+        '121221210' => [                9],
+        '121221211' => [                 ],
+      }.each do |board, available_moves|
+        specify "#{board} should be able to move to #{available_moves.inspect}" do
+          Game.new(board).available_moves.should == available_moves
+        end
+      end
+    end
   end
 end

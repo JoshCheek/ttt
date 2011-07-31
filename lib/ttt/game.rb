@@ -55,5 +55,8 @@ module TTT
       nil
     end
     
+    def available_moves
+      board.each_char.with_index(1).select { |char, _| char != '1' && char != '2' }.map(&:last)
+    end
   end
 end
