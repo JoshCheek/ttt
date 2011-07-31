@@ -41,3 +41,13 @@ end
 Given /^a tie game$/ do
   @game = TTT::Game.new '121221112'
 end
+
+When /^a computer player as player (\d+)$/ do |current_turn|
+  @game.turn.should == current_turn.to_i
+end
+
+Then /^the computer moves to one of the following: ((?:\d+ ?)+)$/ do |possible_boards|
+  @computer = TTT::ComputerPlayer.new @game
+  @computer.take_turn
+  possible_boards.split.should include @game.board
+end
