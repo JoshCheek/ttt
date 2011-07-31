@@ -8,7 +8,7 @@ Feature: Finish game
     Given I create a game with "120120000"
     Then the game is not over
     When I mark position 7
-    Then the game board is "120100100"
+    Then the game board is "120120100"
     And the game is over
     And player1 wins
     And player2 loses
