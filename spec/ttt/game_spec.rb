@@ -42,16 +42,16 @@ module TTT
     
     context 'when player1 can win' do
       let(:game) { Game.new '120120000' }
-      pending
-      # its(:over?) { should be true }
-      # context 'and player1 wins' do
-      #   before { game.mark 7 }
-      #   its(:board) { should == '120120100' }
-      #   its(:over?) { should be false }
-      #   its(:turn)  { should be nil }
-      #   specify('player1 should be the winner') { subject.status(1).should be :wins }
-      #   specify('player2 should be the loser')  { subject.status(2).should be :loses }
-      # end
+      its(:over?) { should_not be }
+      context 'and player1 wins' do
+        before { game.mark 7 }
+        subject { game }
+        its(:board) { should == '120120100' }
+        its(:over?) { should be }
+        its(:turn)  { should be nil }
+        specify('player1 should be the winner') { subject.status(1).should be :wins }
+        specify('player2 should be the loser')  { subject.status(2).should be :loses }
+      end
     end
     
     describe 'winning states' do

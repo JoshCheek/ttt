@@ -9,6 +9,7 @@ module TTT
     end
     
     def turn
+      return if over?
       board.scan('1').size - board.scan('2').size + 1
     end
     
