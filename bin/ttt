@@ -5,7 +5,14 @@ require 'ttt'
 
 game = TTT::Game.new
 
-loop do
+until game.over?
   puts game.board(:ttt)
   game.mark gets.to_i
+end
+
+puts "The game is over."
+if game.tie?
+  puts "No one wins"
+else
+  puts "Player #{game.winner} wins."
 end
