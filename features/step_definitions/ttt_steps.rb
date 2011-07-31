@@ -18,6 +18,6 @@ When /^I mark position (\d+)$/ do |position|
   @game.mark position.to_i
 end
 
-Then /^board\(:ttt\) will be "([^"]*)"$/ do |baord|
-  @game.board(:ttt).should == board
+Then /^board\(:ttt\) will be "([^"]*)"$/ do |board|
+  @game.board(:ttt).should == board.gsub('\\n', "\n")
 end

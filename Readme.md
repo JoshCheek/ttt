@@ -16,7 +16,7 @@ Currently on **Iteration 2**.
 
 ### Iteration 2 - Players can play the game
 
-* As a player, view the board
+* As a developer and tester, view the board
 * As a player, win the game
 * As a player, lose the game
 * As a player, tie the game

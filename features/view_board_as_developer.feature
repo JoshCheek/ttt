@@ -1,4 +1,4 @@
-Feature: View board
+Feature: View board as developer
 
   In order to be able to do exploratory testing
   As a developer
