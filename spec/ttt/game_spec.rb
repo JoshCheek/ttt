@@ -13,6 +13,13 @@ module TTT
         its(:board) { should == board }
         its(:turn) { should == 1 }
       end
+      context 'with more 1s than 2s' do
+        let(:board) { '120100000' }
+        subject { Game.new board }
+        its(:board) { should == board }
+        its(:turn) { should == 2 }
+      end
     end
+    
   end
 end
