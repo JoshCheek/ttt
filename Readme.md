@@ -21,13 +21,7 @@ Currently on **Iteration 3**.
 * As a player, lose the game
 * As a player, tie the game
 
-
-### Iteration 3 - Computer player
-
-* Provide a computer player
-
-
-### Iteration 4 - Computer plays perfectly
+### Iteration 3 - Computer plays perfectly
 
 * Computer player cannot lose
 
