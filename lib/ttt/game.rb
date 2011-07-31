@@ -18,7 +18,7 @@ module TTT
     
     def board(style=nil)
       return @board unless style
-      "  %s | %s | %s  \n----|---|----\n  %s | %s | %s  \n----|---|----\n  %s | %s | %s  " % @board.split('')
+      "  %s | %s | %s  \n----|---|----\n  %s | %s | %s  \n----|---|----\n  %s | %s | %s  " % @board.gsub('0', ' ').split('')
     end
   end
 end

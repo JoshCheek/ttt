@@ -34,6 +34,10 @@ module TTT
         @game = Game.new 'abcdefghi'
         @game.board(:ttt).should == "  a | b | c  \n----|---|----\n  d | e | f  \n----|---|----\n  g | h | i  "
       end
+      it 'renders empty spaces with spaces' do
+        @game = Game.new '120000000'
+        @game.board(:ttt).should == "  1 | 2 |    \n----|---|----\n    |   |    \n----|---|----\n    |   |    "
+      end
     end
   end
 end

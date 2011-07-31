@@ -7,3 +7,7 @@ Feature: View board as developer
   Scenario: View board in tic-tac-toe format
     Given I create a game with "abcdefghi"
     Then board(:ttt) will be "  a | b | c  \n----|---|----\n  d | e | f  \n----|---|----\n  g | h | i  "
+  
+  Scenario: Viewing a board with spaces no one has moved into
+  Given I create a game with "120000000"
+  Then board(:ttt) will be "  1 | 2 |    \n----|---|----\n    |   |    \n----|---|----\n    |   |    "
