@@ -4,16 +4,16 @@ Feature: Finished states
   A finished state is a state that either has no available moves left, or where
   a player has won the game. A player has won the game if they have marked
   three consecutive spaces in a horizontal, vertical, or diagonal direction.
-  
+
   Scenario: No winner, no available moves left
     Given a tie game
     Then the game is over
-  
+
   Scenario Outline: Three marks in a row
     When I create a game with "<configuration>"
     Then the game is over
     And player<winner> wins
-    
+
     Scenarios: Horizontal win
       | configuration | winner |
       | 111000000     | 1      |
@@ -31,10 +31,26 @@ Feature: Finished states
       | 200200200     | 2      |
       | 020020020     | 2      |
       | 002002002     | 2      |
-    
+
     Scenarios: Diagonal win
       | configuration | winner |
       | 100010001     | 1      |
       | 001010100     | 1      |
       | 200020002     | 2      |
       | 002020200     | 2      |
+
+  Scenario Outline: Unfinished states
+    When I create a game with "<configuration>"
+    Then the game is not over
+
+    Scenarios: Playing to a tie game
+      | configuration |
+      | 000000000     |
+      | 100000000     |
+      | 100020000     |
+      | 101020000     |
+      | 121020000     |
+      | 121020010     |
+      | 121220010     |
+      | 121221010     |
+      | 121221012     |
