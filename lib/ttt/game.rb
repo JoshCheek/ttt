@@ -67,7 +67,35 @@ end
 module TTT
   class << Game
     def congruent?(board1, board2)
-      true
+      each_congruent(board2).any? { |congruent| board1 == congruent }
+    end
+    
+    def each_congruent(board)
+      return to_enum(:each_congruent, board) unless block_given?
+      each_rotation(board)               { |congruent| yield congruent }
+      each_rotation(reflect_board board) { |congruent| yield congruent }
+    end
+    
+    def reflect_board(board)
+      board = board.dup
+      board[0..2], board[6..8] = board[6..8], board[0..2]
+      board
+    end
+    
+    def each_rotation(board)
+      return to_enum(:each_rotation, board) unless block_given?
+      board = board.dup
+      4.times do
+        yield board.dup
+        board = rotate_board(board)
+      end
+    end
+    
+    def rotate_board(board)
+      board = board.dup
+      board[0], board[1], board[2], board[3], board[5], board[6], board[7], board[8] =
+      board[6], board[3], board[0], board[7], board[1], board[8], board[5], board[2]
+      board
     end
   end
 end

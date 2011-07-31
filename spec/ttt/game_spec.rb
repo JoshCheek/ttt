@@ -162,12 +162,98 @@ module TTT
         %w[120000000 100200000],
         %w[100020000 001020000 000020100 000020001],
         %w[120000001 100200001],
-        %w[100020100 000020101 001200001 101020000],
+        %w[100020100 000020101 001020001 101020000],
       ].each do |boards|
         specify "knows #{boards.inspect} are all congruent" do
           boards.each do |board1|
             boards.each { |board2| TTT::Game.should be_congruent(board1, board2) }
           end
+        end
+      end
+      
+      [ %w[100000000 010000000 000010000 120000000],
+        %w[120000000 102000000 100020000 100000002],
+        %w[110020000 101020000 100020001],
+      ].each do |boards|
+        specify "knows #{boards.inspect} are not congruent" do
+          boards.each do |board1|
+            boards.each do |board2| 
+              next if board1 == board2
+              TTT::Game.should_not be_congruent(board1, board2)
+            end
+          end
+        end
+      end
+    end
+    
+    describe '.reflect_board' do
+      specify 'abcdefghi should reflect to ghidefabc' do
+        Game.reflect_board('abcdefghi').should == 'ghidefabc'
+      end
+      specify 'it should not mutate the original board' do
+        board = 'abcdefghi'
+        Game.reflect_board board
+        board.should == 'abcdefghi'
+      end
+    end
+    
+    describe '.rotate_board' do
+      specify 'abcdefghi should rotate to gdahebifc' do
+        Game.rotate_board('abcdefghi').should == 'gdahebifc'
+      end
+      specify 'it should not mutate the original board' do
+        board = 'abcdefghi'
+        Game.rotate_board board
+        board.should == 'abcdefghi'
+      end
+    end
+    
+    describe '.each_rotation' do
+      let(:rotations) { %w[abcdefghi gdahebifc ihgfedcba cfibehadg] }
+      subject { Game.each_rotation rotations.first }
+      context 'when not passed a block' do
+        it { should be_an_instance_of Enumerator }
+        its(:to_a) { should == rotations }
+      end
+      context 'when passed a block' do
+        it 'yields each rotation' do
+          boards = []
+          Game.each_rotation rotations.first do |rotation|
+            boards << rotation
+          end
+          boards.should == rotations
+        end
+      end
+      it "isn't impacted by mutations" do
+        Game.each_rotation(rotations.first).with_index do |rotation, index|
+          rotation.should == rotations[index]
+          rotation[2..5] = 'xxxx'
+          rotations.first.should == 'abcdefghi'
+        end
+      end
+    end
+    
+    describe '.each_congruent' do
+      let(:congruents) { %w[abcdefghi gdahebifc ihgfedcba cfibehadg ghidefabc adgbehcfi cbafedihg ifchebgda ] }
+      context 'when not passed a block' do
+        subject { Game.each_congruent congruents.first }
+        it { should be_an_instance_of Enumerator }
+        its(:to_a) { should == congruents }
+      end
+      context 'when passed a block' do
+        it 'should yield each congruent board' do
+          boards = []
+          Game.each_congruent congruents.first do |congruent|
+            boards << congruent
+          end
+          boards.should == congruents
+        end
+      end
+      it "isn't impacted by mutations" do
+        Game.each_congruent(congruents.first).with_index do |congruent, index|
+          congruent.should == congruents[index]
+          congruent[2..5] = 'xxxx'
+          congruents.first.should == "abcdefghi"
         end
       end
     end
