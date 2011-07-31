@@ -12,8 +12,7 @@ Currently on **Iteration 1**.
 ### Iteration 1 - basic functionality
 
 * Start a game
-* Provide two human players
-* Players can mark the board
+* Interface can mark the board
 
 
 ### Iteration 2 - Players can play the game
