@@ -155,6 +155,9 @@ module TTT
           Game.new(board).available_moves.should == available_moves
         end
       end
+      specify "It doesn't show available moves when a game is over" do
+        Game.new('111000000').available_moves.should be_empty
+      end
     end
     
     describe '#pristine_mark' do
