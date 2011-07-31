@@ -12,12 +12,20 @@ module TTT
         subject { Game.new board }
         its(:board) { should == board }
         its(:turn) { should == 1 }
+        it 'marks the board with the current players number' do
+          subject.mark(4)
+          subject.board.should == '120100000'
+        end
       end
       context 'with more 1s than 2s' do
         let(:board) { '120100000' }
         subject { Game.new board }
         its(:board) { should == board }
         its(:turn) { should == 2 }
+        it 'marks the board with the current players number' do
+          subject.mark(7)
+          subject.board.should == '120100200'
+        end
       end
     end
     

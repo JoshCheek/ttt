@@ -11,5 +11,9 @@ module TTT
     def turn
       board.scan('1').size - board.scan('2').size + 1
     end
+    
+    def mark(position)
+      board[position-1] = turn.to_s
+    end
   end
 end
