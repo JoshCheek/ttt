@@ -43,7 +43,7 @@ Feature: Create game
       | 120120000     | 1      |
       | 120120021     | 1      |
       | 000010002     | 1      |
-      | 120221112     | 2      |
+      | 120221112     | 1      |
     
     Scenarios: Player2s turn
       | configuration | player |
