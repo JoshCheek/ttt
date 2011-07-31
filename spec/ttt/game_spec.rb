@@ -7,7 +7,7 @@ module TTT
     end
     
     context 'when it is created with an unfinished board' do
-      context ' with an equal number of 1s and 2s' do
+      context 'with an equal number of 1s and 2s' do
         let(:board) { '120000000' }
         subject { Game.new board }
         its(:board) { should == board }
