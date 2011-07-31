@@ -54,6 +54,34 @@ module TTT
       end
     end
     
+    context 'when player2 can win' do
+      let(:game) { Game.new '121120000' }
+      its(:over?) { should_not be }
+      context 'and player2 wins' do
+        before { game.mark 8 }
+        subject { game }
+        its(:board) { should == '121120020' }
+        its(:over?) { should be }
+        its(:turn)  { should be nil }
+        specify('player1 should be the loser')  { subject.status(1).should be :loses }
+        specify('player2 should be the winner') { subject.status(2).should be :wins }
+      end
+    end
+    
+    context 'when the game can end in a tie' do
+      let(:game) { Game.new '121221012' }
+      its(:over?) { should_not be }
+      context 'and the game ends in a tie' do
+        before { game.mark 7 }
+        subject { game }
+        its(:board) { should == '121221112' }
+        its(:over?) { should be }
+        its(:turn)  { should be nil }
+        specify('player1 should tie') { subject.status(1).should be :ties }
+        specify('player2 should tie') { subject.status(2).should be :ties }
+      end
+    end
+    
     describe 'winning states' do
       [ ['111000000', 1],
         ['000111000', 1],
