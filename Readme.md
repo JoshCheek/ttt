@@ -13,7 +13,6 @@ Currently on **Iteration 2**.
 
 * Start a game
 * Interface can mark the board
-* Render to tic-tac-toe format
 
 ### Iteration 2 - Players can play the game
 
