@@ -129,16 +129,6 @@ namespace :script do
     end
     all_boards.each { |board| puts board }
   end
-  
-  
-  task :compute_unique_outcomes => :methods do
-    boards = all_boards_cached.select { |board| TTT::Game.new(board).over? }     # according to http://en.wikipedia.org/wiki/Tic-tac-toe
-    p all_boards_cached.size
-    p boards.size                                                                # should be 138
-    p boards.select { |board| TTT::Game.new(board).winner == 1 }.size            # should be 91
-    p boards.select { |board| TTT::Game.new(board).winner == 2 }.size            # should be 44
-    p boards.select { |board| TTT::Game.new(board).tie?        }.size            # should be 3
-  end
     
   
   desc 'Show a 9-digit formatted board in tic-tac-toe format'
@@ -161,4 +151,14 @@ namespace :script do
     puts "The game is over.", (game.tie? ? "No one wins" : "Player #{game.winner} wins.")
   end
   
+  
+  desc 'Computes some stats that were listed on Wikipedia to ensure numbers are correct'
+  task :stats => :environment do
+    boards = all_boards_cached.select { |board| TTT::Game.new(board).over? }                                    # according to http://en.wikipedia.org/wiki/Tic-tac-toe
+    puts "#{all_boards_cached.size} unique boards (congruent classes)"                                          # no expectation, size is 765
+    puts "#{boards.size} unique end states"                                                                     # expect 138 (true)
+    puts "#{boards.select { |board| TTT::Game.new(board).winner == 1 }.size} unique ways for player 1 to win"   # expect 91  (true)
+    puts "#{boards.select { |board| TTT::Game.new(board).winner == 2 }.size} unique ways for player 2 to win"   # expect 44  (true)
+    puts "#{boards.select { |board| TTT::Game.new(board).tie?        }.size} unique ways to tie"                # expect 3   (true)
+  end
 end
