@@ -4,11 +4,6 @@ task :environment do
   require 'ttt/computer_player'
 end
 
-desc 'Show a 101020000 formatted board in tic-tac-toe format'
-task :show => :environment do
-  puts TTT::Game.new(ENV['board']).board(:ttt)
-end
-
 desc 'Open a pry console with the app loaded'
 task :console do
   sh 'pry -I lib -r ttt -r ttt/computer_player'
@@ -140,6 +135,14 @@ namespace :scripts do
   task :list_congruent => :methods do
     all_boards_cached.each { |board| puts board }
   end
+  
+  
+  desc 'Show a 9-digit formatted board in tic-tac-toe format'
+  task :show => :environment do
+    raise 'pass argument board=000000000' unless ENV['board']
+    puts TTT::Game.new(ENV['board']).board(:ttt)
+  end
+  
   
   desc 'An ultra-simple CLI to play the game'
   task :play => :environment do
