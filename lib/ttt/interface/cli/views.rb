@@ -44,14 +44,67 @@ module TTT
         end
         
         def square(num, line)
-          if line == 0
-            "     "
-          elsif line == 1
-            "  %s  " % char_for(num)
-          elsif
-            line == 2
+          send "line#{line}_for", num
+        end
+        
+        def line0_for(square)
+          if forward_diagonal_winner?(square)
+            "\\    "
+          elsif backward_diagonal_winner?(square)
+            "    /"
+          elsif vertical_winner? square
+            "  |  "
+          else
             "     "
           end
+        end
+        
+        def line1_for(square)
+          if horizontal_winner? square
+            "--%s--"
+          else
+            "  %s  "
+          end % char_for(square)
+        end
+        
+        def line2_for(square)
+          if forward_diagonal_winner?(square)
+            "    \\"
+          elsif backward_diagonal_winner?(square)
+            "/    "
+          elsif vertical_winner? square
+            "  |  "
+          else
+            "     "
+          end
+        end
+        
+        def winner?(square)
+          game.over? && !game.tie? && game.winning_positions.include?(square)
+        end
+        
+        def forward_diagonal_winner?(square)
+          return false unless winner? square
+          [[1, 5], [5, 9], [9, 5]].any? do |s1, s2|
+            square == s1 && winner?(s2)
+          end
+        end
+        
+        def backward_diagonal_winner?(square)
+          return false unless winner? square
+          [[3, 5], [5, 7], [7, 5]].any? do |s1, s2|
+            square == s1 && winner?(s2)
+          end
+        end
+        
+        def vertical_winner?(square)
+          return false unless winner? square
+          winner? (square + 2) % 9 + 1
+        end
+        
+        def horizontal_winner?(square)
+          return false unless winner? square
+          winner?(square+1) || winner?(square-1)
         end
         
         def char_for(position)
