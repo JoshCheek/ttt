@@ -26,11 +26,16 @@ Then /^it should exit with code of (\d+)$/ do |code|
 end
 
 Then /^it should create a (\w+) interface$/ do |interface_name|
-  @interface = stub
+  pending "I can't figure out how to test this"
+  @interface = stub 'interface'
   interface_class = TTT::Interface.const_get interface_name
   interface_class.should_receive(:new).once.and_return(stub)
 end
 
 Then /^it should tell the interface to play the game$/ do
   @interface.should_receive(:play)
+end
+
+Given /^pending: (.*)$/ do |reason|
+  pending reason
 end

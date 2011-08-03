@@ -19,17 +19,26 @@ Feature: Binary
   Given I pass the it "" on the command line
     Then it should display "Usage: ttt --interface interface_type"
 
-  Scenario: -i
+  Scenario: -i without an arg
+    Given pending: I don't know how to test this
     Given I pass the it "-i" on the command line
     Then it should print "Please supply interface type" to stderr
     And it should exit with code of 1
+    
 
-  Scenario: --interface
+  Scenario: --interface, without an arg
+    Given pending: I don't know how to test this
     Given I pass the it "--interface" on the command line
     Then it should print "Please supply interface type" to stderr
     And it should exit with code of 1
 
   Scenario: -i cli
+    Given pending: I don't know how to test this
     Given I pass the it "-i cli" on the command line
     Then it should create a CLI interface
     And it should tell the interface to play the game
+
+  Scenario: -i not_real_interface
+    Given pending: I don't know how to test this
+    Given I pass the it "-i not_real_interface" on the command line
+    Then it should print "not_real_interface is not a valid interface" to stderr
