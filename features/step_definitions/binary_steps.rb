@@ -13,12 +13,12 @@ Given /^I pass the it "([^"]*)" on the command line$/ do |args|
 end
 
 Then /^it should display "([^"]*)"$/ do |message|
-  stdout.should see message
+  stdout.messages.should include message
 end
 
 Then /^it should print "([^"]*)" to (\w+)$/ do |message, output_name|
   output = send output_name
-  output.should see message
+  output.messages.should include message
 end
 
 Then /^it should exit with code of (\d+)$/ do |code|

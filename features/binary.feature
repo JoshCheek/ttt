@@ -9,12 +9,16 @@ Feature: Binary
   
   Scenario: -h
     Given I pass the it "-h" on the command line
-    Then it should display "help"
+    Then it should display "Usage: ttt --interface interface_type"
   
   Scenario: --help
     Given I pass the it "--help" on the command line
-    Then it should display "help"
+    Then it should display "Usage: ttt --interface interface_type"
   
+  Scenario: no input displays help
+  Given I pass the it "" on the command line
+    Then it should display "Usage: ttt --interface interface_type"
+
   Scenario: -i
     Given I pass the it "-i" on the command line
     Then it should print "Please supply interface type" to stderr

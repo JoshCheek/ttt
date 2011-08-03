@@ -7,10 +7,7 @@ module IOStub
       @messages ||= []
     end
     def puts(message)
-      messages << message
-    end
-    def see?(message)
-      messages.include? message
+      message.to_s.split("\n").each { |line| messages << line }
     end
   end
 
@@ -30,13 +27,13 @@ end
 
 
 def stdout
-  @stdout ||= Stub::Output.new
+  @stdout ||= IOStub::Output.new
 end
 
 def stderr
-  @stderr ||= Stub::Output.new
+  @stderr ||= IOStub::Output.new
 end
 
 def stdin
-  @stdin ||= Stub::Input.new
+  @stdin ||= IOStub::Input.new
 end
