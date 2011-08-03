@@ -65,9 +65,9 @@ module TTT
       def create_player(letter, position)
         type = prompt "#{letter} will go #{position}, would you like #{letter} to be a human or a computer? (h/c) ", :validate => /^[hc]$/i
         if type =~ /c/i
-          ComputerPlayer.new game, self
+          ComputerPlayer.new game, self, letter
         else
-          HumanPlayer.new game, self
+          HumanPlayer.new game, self, letter
         end
       end
       
@@ -85,6 +85,10 @@ module TTT
       
       def display_board
         Views.new(self).display_board
+      end
+      
+      def board
+        game.board
       end
     end
   end

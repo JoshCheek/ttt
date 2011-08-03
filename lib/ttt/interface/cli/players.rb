@@ -7,16 +7,16 @@ module TTT
         
             
       class Player
-        attr_accessor :game, :cli
+        attr_accessor :game, :cli, :marker
         
         extend Forwardable
         def_delegators :cli, :fileout, :filein, :fileerr, :prompt
         
-        def initialize(game, cli)
-          self.game = game
-          self.cli = cli
+        def initialize(game, cli, marker)
+          self.game   = game
+          self.cli    = cli
+          self.marker = marker
         end
-        
       end
       
       
