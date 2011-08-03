@@ -5,7 +5,7 @@ module TTT
     attr_writer :board
     
     def initialize(board=DEFAULT_BOARD)
-      self.board = board
+      self.board = board.dup
     end
     
     def turn
@@ -38,15 +38,7 @@ module TTT
     end
     
     def winner
-      [ [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-      ].each do |pos1, pos2, pos3|
+      winning_states do |pos1, pos2, pos3|
         next unless board[pos1] == board[pos2]
         next unless board[pos1] == board[pos3]
         next unless board[pos1] =~ /^(1|2)$/
@@ -64,6 +56,10 @@ module TTT
       marked = self.class.new board.dup
       marked.mark position
       marked
+    end
+    
+    def winning_states(&block)
+      self.class.winning_states(&block)
     end
     
   end
@@ -103,6 +99,17 @@ module TTT
       board[0], board[1], board[2], board[3], board[5], board[6], board[7], board[8] =
       board[6], board[3], board[0], board[7], board[1], board[8], board[5], board[2]
       board
+    end
+    
+    def winning_states
+      yield 0, 1, 2
+      yield 3, 4, 5
+      yield 6, 7, 8
+      yield 0, 3, 6
+      yield 1, 4, 7
+      yield 2, 5, 8
+      yield 0, 4, 8
+      yield 2, 4, 6
     end
   end
 end
