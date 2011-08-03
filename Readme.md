@@ -7,7 +7,7 @@ When complete, TTT will be a Tic Tac Toe lib, as well as some sort of interface 
 Iterations For the Lib
 ----------------------
 
-Currently on **Iteration 3**.
+Currently on **Iteration 4**.
 
 ### Iteration 1 - basic functionality
 
@@ -26,11 +26,19 @@ Currently on **Iteration 3**.
 * Computer player cannot lose
 
 
+### Iteration 4 - Real CLI
+
+* binary named ttt
+* accepts --interface cli
+* asks if you want to go first (x) or second (o)
+* plays game vs you
+
+
 
 Iterations For the Interface
 ----------------------------
 
-I will think about this more later. Probably a simple CLI at first, then maybe a CLI with colour. Then perhaps a web interface or a gui.
+Maybe a CLI with colour. Then perhaps a web interface or a gui.
 
 
 
