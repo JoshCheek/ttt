@@ -14,6 +14,15 @@ Then /^it is (player(\d+)s|no one's) turn$/ do |turn, player_number|
   end
 end
 
+When /^I ask what positions won$/ do
+  @winning_positions = @game.winning_positions
+end
+
+Then /^it tells me \[(\d+), (\d+), (\d+)\]$/ do |p1, p2, p3|
+  @winning_positions.sort.should == [p1, p2, p3].map(&:to_i).sort
+end
+
+
 When /^I create a game with "([^"]*)"$/ do |configuration|
   @game = TTT::Game.new configuration
 end

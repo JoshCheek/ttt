@@ -160,6 +160,24 @@ module TTT
       end
     end
     
+    describe '#winning_positions' do
+      [ ['111220000', [1, 2, 3]],
+        ['220111000', [4, 5, 6]],
+        ['220000111', [7, 8, 9]],
+        ['120120100', [1, 4, 7]],
+        ['210210010', [2, 5, 8]],
+        ['201201001', [3, 6, 9]],
+        ['120210001', [1, 5, 9]],
+        ['021210100', [3, 5, 7]],
+        ['021210100', [3, 5, 7]],
+        ['211210200', [1, 4, 7]],
+      ].each do |board, positions|
+        it "Knows which positions won" do
+          Game.new(board).winning_positions.should == positions
+        end
+      end
+    end
+    
     describe '#pristine_mark' do
       let(:game) { Game.new '000000000' }
       subject { game.pristine_mark 1 }
