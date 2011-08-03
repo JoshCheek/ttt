@@ -177,4 +177,100 @@ namespace :script do
     pp boards
   end
   
+  
+  desc 'CLI to explore the game tree'
+  task :explore => :environment do
+    module TTT
+      class Game
+        # overwrite how board(:ttt) displays so that we can get something condensed enough to display
+        # many on the same line (colour allows us to distinguish the boardspace without using any
+        # more characters than are required to display the markings themselves)
+        def board(format=nil)
+          return @board unless format
+          @board.gsub(/[^12]/, ' ').scan(/.../).map { |line| "\e[44m#{line}\e[0m" }.join("\n")
+        end
+      end
+    end
+        
+    module TTT
+      class ExploreTree
+        
+        attr_accessor :tree
+        
+        def initialize
+          self.tree = TTT::Rating.new
+        end
+        
+        def explore!
+          loop do
+            display_adjacent commands, tree
+            print '> '
+            handle_command $stdin.gets
+          end
+        end
+        
+        def display_adjacent(*displayables)
+          line_sets = []
+          queues = displayables.map { |displayable| displayable.to_s.split "\n" }
+          until queues.all?(&:empty?)
+            line_sets << [] # add a set for current line
+            queues.each { |queue| line_sets.last << queue.shift unless queue.empty? }
+          end
+          puts line_sets.map { |set| set.join ' ' }.join("\n")
+        end
+        
+        def commands
+          "------------------\n"\
+          "|    COMMANDS    |\n"\
+          "|----------------|\n"\
+          "| move position  |\n"\
+          "| show [depth]   |\n"\
+          "| back           |\n"\
+          "| rate player    |\n"\
+          "| exit           |\n"\
+          "------------------\n"
+        end
+        
+        def handle_command(command)
+          args = command.split
+          command = args.shift
+          send command, *args if command
+        rescue => e
+          puts "Invalid command (#{e.message})"
+        end
+                
+        def move(n)
+          self.tree = tree.children[n.to_i] || raise("No child at #{n.inspect}")
+        end
+        
+        def colour_if_complete(tree)
+          return tree.to_s unless tree.game.over?
+          tree.to_s.split("\n").map { |line| "\e[33;1m#{line}\e[0m" }.join("\n")
+        end
+        
+        def show(depth=1)
+          crnt = [tree]
+          (depth.to_i-1).times do
+            crnt = crnt.map { |node| node.children.values }.flatten # descend to next depth
+          end
+          display_adjacent(*crnt.map(&method(:colour_if_complete)))
+        end
+        
+        def back
+          self.tree = tree.parent || raise("Can't go back, this is where we started")
+        end
+        
+        def rate(player_number)
+          puts tree.rating_for(player_number.to_i)
+        end
+        
+        def exit
+          Kernel.exit
+        end
+      end
+    end
+    
+    TTT::ExploreTree.new.explore!
+  end
+  
 end
