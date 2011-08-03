@@ -25,8 +25,8 @@ module TTT
         create_player1
         create_player2
         until game.over?
+          display_board          
           take_current_turn
-          display_board
         end
         display_results
       end
