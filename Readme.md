@@ -7,7 +7,7 @@ When complete, TTT will be a Tic Tac Toe lib, as well as some sort of interface 
 Iterations For the Lib
 ----------------------
 
-Currently on **Iteration 4**.
+Currently on **Iteration 5**.
 
 ### Iteration 1 - basic functionality
 
@@ -34,19 +34,9 @@ Currently on **Iteration 4**.
 * plays game vs you
 
 
+### Iteration 5 - GUI
 
-Iterations For the Interface
-----------------------------
-
-Maybe a CLI with colour. Then perhaps a web interface or a gui.
-
-
-
-Possible Future Features
-------------------------
-
-* Strict mode, which raises errors for common types of invalid behaviour
-
+* Try to impress the 8th Lighters by making a gui using Limelight
 
 Author
 ------
