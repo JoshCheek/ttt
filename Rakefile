@@ -18,9 +18,12 @@ desc 'run RSpec against the specification'
 task :spec do
   sh 'rspec spec --colour'
 end
+task :rspec => :spec # synonym
 
 
-namespace :scripts do
+
+
+namespace :script do
   
   task :methods => :environment do
     
