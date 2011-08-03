@@ -161,4 +161,20 @@ namespace :script do
     puts "#{boards.select { |board| TTT::Game.new(board).winner == 2 }.size} unique ways for player 2 to win"   # expect 44  (true)
     puts "#{boards.select { |board| TTT::Game.new(board).tie?        }.size} unique ways to tie"                # expect 3   (true)
   end
+  
+  
+  desc 'Computes ratings for each board for each player'
+  task :ratings => :environment do
+    require 'pp'
+    boards = {}
+    all_boards_cached.each do |board|
+      tree = TTT::Rating.new board
+      boards[board] = {
+        1 => tree.rating_for(1),
+        2 => tree.rating_for(2),
+      }
+    end
+    pp boards
+  end
+  
 end
