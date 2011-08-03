@@ -17,12 +17,12 @@ Feature: Binary
   
   Scenario: -i
     Given I pass the it "-i" on the command line
-    Then it should print to "stderr" "Please supply interface type"
+    Then it should print "Please supply interface type" to stderr
     And it should exit with code of 1
 
   Scenario: --interface
     Given I pass the it "--interface" on the command line
-    Then it should print to "stderr" "Please supply interface type"
+    Then it should print "Please supply interface type" to stderr
     And it should exit with code of 1
 
   Scenario: -i cli
