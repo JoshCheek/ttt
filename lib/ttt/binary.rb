@@ -13,6 +13,7 @@ module TTT
     end
     
     def parse(argv)
+      argv = ['-h'] if argv.empty?
       optparse.parse! argv
     end
     
