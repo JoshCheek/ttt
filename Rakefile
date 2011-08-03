@@ -1,16 +1,7 @@
 task :environment do  
   $:.unshift File.expand_path('../lib', __FILE__)
   require 'ttt'
-end
-
-desc 'A simple CLI to the lib'
-task :simple_cli => :environment do
-  game = TTT::Game.new
-  until game.over?
-    puts game.board(:ttt)
-    game.mark $stdin.gets.to_i
-  end
-  puts "The game is over.", (game.tie? ? "No one wins" : "Player #{game.winner} wins.")
+  require 'ttt/computer_player'
 end
 
 desc 'Show a 101020000 formatted board in tic-tac-toe format'
@@ -149,4 +140,18 @@ namespace :scripts do
   task :list_congruent => :methods do
     all_boards_cached.each { |board| puts board }
   end
+  
+  desc 'An ultra-simple CLI to play the game'
+  task :play => :environment do
+    game = TTT::Game.new ENV['board'] || '000000000'
+    comp = TTT::ComputerPlayer.new(game)
+    until game.over?
+      comp.take_turn
+      puts game.board(:ttt)
+      break if game.over?
+      game.mark $stdin.gets.to_i
+    end
+    puts "The game is over.", (game.tie? ? "No one wins" : "Player #{game.winner} wins.")
+  end
+  
 end
