@@ -52,4 +52,12 @@ Feature: Create game
       | 001112200     | 2      |
       | 100200100     | 2      |
       | 120221110     | 2      |
-    
+  
+  Scenario: Know who is where
+    Given I create a game with "000120000"
+    When I ask who is at position 4, it returns 1
+    When I ask who is at position 5, it returns 2
+    When I ask who is at position 6, it returns nil
+
+  
+  

@@ -34,6 +34,12 @@ Then /^the game is (not )?over$/ do |not_over|
   end
 end
 
+When /^I ask who is at position (\d+), it returns (\w+)$/ do |position, player|
+  player = player.to_i
+  player = nil if player.zero?
+  @game[position.to_i].should == player
+end
+
 Then /^player(\d+) (wins|loses|ties)$/ do |player, status|
   @game.status(player.to_i).should == status.to_sym
 end

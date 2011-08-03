@@ -62,6 +62,11 @@ module TTT
       self.class.winning_states(&block)
     end
     
+    def [](position)
+      player = board[position-1, 1].to_i
+      return player if player == 1 || player == 2
+    end
+    
   end
 end
 
