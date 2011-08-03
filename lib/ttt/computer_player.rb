@@ -3,11 +3,14 @@ require 'ttt/ratings'
 module TTT
   class ComputerPlayer
         
-    attr_accessor :game, :player_number
+    attr_accessor :game
     
     def initialize(game)
       self.game = game
-      self.player_number = game.turn
+    end
+    
+    def player_number
+      game.turn
     end
     
     def take_turn

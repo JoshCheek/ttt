@@ -54,3 +54,9 @@ Feature: Computer player
       | 102100200     | 1      | 102110200                                | makes move that will guarantee win next turn           |
       | 100020000     | 1      | 110020000 100120000                      | makes move with highest probability of win in future   |
       | 100000000     | 2      | 100020000                                | makes move with lowest probability of losing in future |
+  
+  Scenario: Plays correctly for current player
+    Given I create a game with "000000000"
+    And I have a computer player
+    Then the computer will play for 1
+    Then the computer will play for 2

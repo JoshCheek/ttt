@@ -51,3 +51,17 @@ Then /^the computer moves to one of the following: ((?:\d+ ?)+)$/ do |possible_b
   @computer.take_turn
   possible_boards.split.should include @game.board
 end
+
+Given /^I have a computer player$/ do
+  @computer = TTT::ComputerPlayer.new @game
+end
+
+Then /^the computer will play for (\d+)$/ do |player_number|
+  player_number = player_number.to_i
+  @game.turn.should == player_number
+  @computer.player_number.should == player_number
+  @computer.take_turn
+  @game.turn.should_not == player_number
+  @computer.player_number.should_not == player_number.to_i
+end
+
