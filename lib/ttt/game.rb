@@ -38,13 +38,8 @@ module TTT
     end
     
     def winner
-      winning_states do |pos1, pos2, pos3|
-        next unless board[pos1] == board[pos2]
-        next unless board[pos1] == board[pos3]
-        next unless board[pos1] =~ /^(1|2)$/
-        return board[pos1].to_i
-      end
-      nil
+      return unless winning_positions
+      self[winning_positions.first]
     end
     
     def available_moves
