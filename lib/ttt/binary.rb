@@ -7,12 +7,12 @@ module TTT
   # The code for ttt/bin
   class Binary
     
-    attr_accessor :stdout, :stderr, :stdin
+    attr_accessor :filein, :fileout, :fileerr
     
     def initialize(argv, io={})
-      self.stdout = io.fetch :out, $stdout
-      self.stderr = io.fetch :err, $stderr
-      self.stdin  = io.fetch :in,  $stdin
+      self.fileout = io.fetch :fileout, $stdout
+      self.fileerr = io.fetch :fileerr, $stderr
+      self.filein  = io.fetch :filein,  $stdin
       parse argv
     end
     
@@ -20,7 +20,7 @@ module TTT
       argv = ['-h'] if argv.empty?
       Parser.new(self).parse argv
     rescue OptionParser::MissingArgument => e
-      stderr.puts e.message
+      fileerr.puts e.message
       Kernel.exit 1
     end
     
@@ -64,7 +64,7 @@ module TTT
       end
     
       def options_for_interface
-        return :in => stdin, :out => stdout, :err => stderr
+        return :filein => filein, :fileout => fileout, :fileerr => fileerr
       end
     
       def define_banner(options)
@@ -75,19 +75,19 @@ module TTT
       def define_interface(options)
         options.on '-i', '--interface TYPE', "Specify which interface to play on. Select from: #{list_of_registered}" do |interface_name|
           if interface_name.equal? true
-            stderr.puts "Please supply interface type"
+            fileerr.puts "Please supply interface type"
             Kernel.exit 1
           elsif has_interface? interface_name
             interface(interface_name).new(options_for_interface).play
           else
-            stderr.puts "#{interface_name.inspect} is not a valid interface, select from: #{list_of_registered}"
+            fileerr.puts "#{interface_name.inspect} is not a valid interface, select from: #{list_of_registered}"
           end
         end
       end
     
       def define_help(options)
         options.on '-h', '--help', 'Display this screen' do
-          stdout.puts options
+          fileout.puts options
         end
       end
     end
