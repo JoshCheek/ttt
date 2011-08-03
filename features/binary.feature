@@ -5,7 +5,7 @@ Feature: Binary
 
   Scenario: It is a binary
     Given I look at bin/ttt
-    When I see it is executable
+    Then I see it is executable
   
   Scenario: -h
     Given I pass the it "-h" on the command line
