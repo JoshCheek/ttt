@@ -11,7 +11,7 @@ end
 
 desc 'Open a pry console with the app loaded'
 task :console do
-  sh 'pry -I lib -r ttt'
+  sh 'pry -I lib -r ttt -r ttt/computer_player'
 end
 
 desc 'Run Cucumber against the features'
