@@ -4,7 +4,7 @@ module TTT
       Interface.register 'cli', self
       
       def play
-        puts "playing"
+        puts "Welcome to Tic Tac Toe"
       end
     end
   end

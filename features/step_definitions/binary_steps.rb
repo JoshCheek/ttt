@@ -3,39 +3,38 @@ Given /^I look at (.*)$/ do |location|
 end
 
 When /^I see it is executable$/ do
-  executable = File.executable?(@location)
-  executable.should be
+  File.executable?(@location).should be
 end
 
 Given /^I pass the it "([^"]*)" on the command line$/ do |args|
-  # in, out, and err are defined in features/support/io_stub
-  @binary = TTT::Binary.new args.split, :in => stdin, :out => stdout, :err => stderr
+  require 'open3' # from stdlib
+  binary = Class.new Struct.new(:exitstatus, :stdout, :stderr) do
+    def initialize(args)
+      Open3.popen3 "bin/ttt #{args}" do |stdin, stdout, stderr, wait_thr|
+        super(wait_thr.value.exitstatus, stdout.read.strip, stderr.read.strip)
+      end
+    end
+  end
+  @binary = binary.new args
 end
 
-Then /^it should display "([^"]*)"$/ do |message|
-  stdout.messages.should include message
+Then %r{^it should display /([^/]*)/$} do |message|
+  Then "it should print /#{message}/ to stdout"
 end
 
-Then /^it should print "([^"]*)" to (\w+)$/ do |message, output_name|
-  output = send output_name
-  output.messages.should include message
+Then %r{^it should print /([^/]*)/ to (\w+)$} do |message, output_name|
+  output = @binary.send output_name
+  output.should match Regexp.new(message)
 end
 
 Then /^it should exit with code of (\d+)$/ do |code|
-  Kernel.should_receive(:exit).once.with(code.to_i)
+  @binary.exitstatus.should be code.to_i
 end
 
-Then /^it should create a (\w+) interface$/ do |interface_name|
-  pending "I can't figure out how to test this"
-  @interface = stub 'interface'
-  interface_class = TTT::Interface.const_get interface_name
-  interface_class.should_receive(:new).once.and_return(stub)
+
+# a simple greeting we'll have the CLI write
+# just to make sure everything is hooked up correctly
+Then /^it should welcome me to Tic Tac Toe$/ do
+  Then "it should display /Welcome to Tic Tac Toe/"
 end
 
-Then /^it should tell the interface to play the game$/ do
-  @interface.should_receive(:play)
-end
-
-Given /^pending: (.*)$/ do |reason|
-  pending reason
-end
