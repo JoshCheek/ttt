@@ -25,10 +25,25 @@ module TTT
         create_player1
         create_player2
         until game.over?
-          current_player.take_turn
+          take_current_turn
           display_board
         end
-        # display_results
+        display_results
+      end
+      
+      def display_results
+        display_board
+        if game.tie?
+          puts "The game ended in a tie."
+        else
+          puts "Player #{game.winner} won the game."
+        end
+        puts "Play again soon :)"
+      end
+      
+      def take_current_turn
+        current_player.take_turn
+        self.turn += 1
       end
       
       def current_player
