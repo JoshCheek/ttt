@@ -37,7 +37,9 @@ squares {
   background_color :green
 }
 
-square {
+# I have to do it this way, because 
+# I want to override the width/height
+square_styles {
   width 100
   height 100
   background_color :white
@@ -59,41 +61,41 @@ above_another_square {
 square1 {
   extends :left_of_another_square
   extends :above_another_square
-  extends :square
+  extends :square_styles
 }
 square2 {
   extends :left_of_another_square
   extends :above_another_square
-  extends :square
+  extends :square_styles
 }
 square3 {
   extends :above_another_square
-  extends :square
+  extends :square_styles
 }
 
 square4 {
   extends :left_of_another_square
   extends :above_another_square
-  extends :square
+  extends :square_styles
 }
 square5 {
   extends :left_of_another_square
   extends :above_another_square
-  extends :square
+  extends :square_styles
 }
 square6 {
   extends :above_another_square
-  extends :square
+  extends :square_styles
 }
 
 square7 {
   extends :left_of_another_square
-  extends :square
+  extends :square_styles
 }
 square8 {
   extends :left_of_another_square
-  extends :square
+  extends :square_styles
 }
 square9 {
-  extends :square
+  extends :square_styles
 }
