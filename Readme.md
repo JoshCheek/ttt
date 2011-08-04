@@ -28,7 +28,7 @@ Install
 Author
 ------
 
-[Josh Cheek](joshcheek)
+[Josh Cheek][joshcheek]
 
 
 [limelight]: http://limelight.8thlight.com/
