@@ -1,7 +1,7 @@
 T(ic) T(ac) T(oe)
 =================
 
-TTT is a Tic Tac Toe lib, and two interfaces to play it. Check out the [video][video] showing it off. 
+TTT is a Tic Tac Toe lib, and two interfaces to play it. Check out the [video][video]. 
 
 
 Features
@@ -15,7 +15,8 @@ Features
 Requirements
 ------------
 
-* FIXME (list of requirements)
+* Ruby
+* To play on the Limelight interface, you need the Limelight executable in your path.
 
 
 Install
