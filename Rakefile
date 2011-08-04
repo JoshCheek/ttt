@@ -1,11 +1,15 @@
 require 'bundler/bouncer'
 
+# load the lib
 task :environment do  
   $:.unshift File.expand_path('../lib', __FILE__)
   require 'ttt'
   require 'ttt/computer_player'
 end
 
+
+
+# commonly invoked interfaces
 desc 'Open a pry console with the app loaded'
 task :console do
   sh 'pry -I lib -r ttt -r ttt/computer_player'
@@ -24,7 +28,47 @@ task :rspec => :spec # synonym
 
 
 
+# handle gem construction
+require "rubygems/package_task"
+spec = Gem::Specification.new do |s|
+  # informatoin
+  s.name              = "ttt"
+  s.version           = "1.0.0"
+  s.summary           = "Tic Tac Toe lib + binary"
+  s.description       = "TTT is a Tic Tac Toe lib, as well as a CLI and GUI to play it."
+  s.author            = "Joshua J Cheek"
+  s.email             = "josh.cheek@gmail.com"
+  s.homepage          = "https://github.com/JoshCheek/ttt"
 
+  # additional files
+  s.files             = %w(Gemfile Gemfile.lock MIT-License.md Rakefile Readme.md) + Dir.glob("{bin,spec,features,lib}/**/*")
+  s.executables       = FileList["bin/**"].map { |f| File.basename(f) }
+  s.require_paths     = ["lib"]
+
+  # dependencies
+  s.add_development_dependency "bundler-bouncer" , "~> 0.1.2"
+  s.add_development_dependency "rspec"           , "~> 2.6.0"
+  s.add_development_dependency "cucumber"        , "~> 1.0.2"
+  s.add_development_dependency "pry"             , "~> 0.9.3"
+  s.add_development_dependency "rake"            , "~> 0.9.2"
+end
+
+task :package => :gemspec
+Gem::PackageTask.new(spec) do |pkg|
+  pkg.gem_spec = spec
+end
+
+desc "Build the gemspec file #{spec.name}.gemspec"
+task :gemspec do
+  file = File.dirname(__FILE__) + "/#{spec.name}.gemspec"
+  File.open(file, "w") {|f| f << spec.to_ruby }
+end
+
+
+
+
+
+# Various command line utilities constructed while building the gem
 namespace :script do
     
   # cache the boards b/c computing them takes a long time
@@ -276,3 +320,5 @@ namespace :script do
   end
   
 end
+
+
