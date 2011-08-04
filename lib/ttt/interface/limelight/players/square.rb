@@ -16,8 +16,14 @@ module Square
     Square.clicked(position)
   end
   
-  def mark(marker)
-    self.text = marker
+  def mark(player)
+    if player == 1
+      self.text = 'X'
+      self.style.text_color = :red
+    else
+      self.text = 'O'
+      self.style.text_color = :blue
+    end
   end
   
   def unmark
@@ -27,6 +33,14 @@ module Square
   def marked?
     !text.empty?
   end
+  
+  def game_over
+    self.style.text_color = :gray
+  end
+  
+  def mark_winner
+    self.style.text_color = :green
+  end
 end
     
 
@@ -35,7 +49,7 @@ class << Square
   
   def reset
     @game = @current_turn = nil
-    squares.each { |square| square.unmark }
+    squares.each_value { |square| square.unmark }
   end
   
   def game
@@ -73,15 +87,19 @@ class << Square
   def can_click?(position)
     squares[position] && !squares[position].marked? && !game.over?
   end
-  
-  def current_player_marker
-    current_turn == 1 ? 'X' : 'O'
-  end
-  
+    
   def mark(position)
     game.mark position
-    squares[position].mark current_player_marker
+    squares[position].mark current_turn
     advance_turn
+    check_for_end_of_game
+  end
+  
+  def check_for_end_of_game
+    if game.over?
+      squares.each_value { |square| square.game_over }
+      game.winning_positions.each { |position| squares[position].mark_winner }
+    end
   end
 end
 
