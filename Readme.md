@@ -1,45 +1,35 @@
 T(ic) T(ac) T(oe)
 =================
 
-When complete, TTT will be a Tic Tac Toe lib, as well as some sort of interface to allow for gameplay.
+TTT is a Tic Tac Toe lib, as well and two interfaces to play it.
 
 
-Iterations For the Lib
-----------------------
+Features
+--------
 
-Currently on **Iteration 5**.
-
-### Iteration 1 - basic functionality
-
-* Start a game
-* Interface can mark the board
-
-### Iteration 2 - Players can play the game
-
-* As a developer and tester, view the board
-* As a player, win the game
-* As a player, lose the game
-* As a player, tie the game
-
-### Iteration 3 - Computer plays perfectly
-
-* Computer player cannot lose
+* An aggressive computer player that will never lose
+* A command line interface that will work in any terminal
+* A GUI interface written with [Limelight][limelight]
 
 
-### Iteration 4 - Real CLI
+Requirements
+------------
 
-* binary named ttt
-* accepts --interface cli
-* asks if you want to go first (x) or second (o)
-* plays game vs you
+* FIXME (list of requirements)
 
 
-### Iteration 5 - GUI
+Install
+-------
 
-* Try to impress the 8th Lighters by making a gui using Limelight
+* `gem install ttt`
+* `gem install limelight` (you must be on jruby)
+
 
 Author
 ------
 
-[Josh Cheek](http://joshcheek.com/)
+[Josh Cheek](joshcheek)
 
+
+[limelight]: http://limelight.8thlight.com/
+[joshcheek]: http://joshcheek.com/
