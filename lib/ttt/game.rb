@@ -38,7 +38,7 @@ module TTT
     end
     
     def winner
-      return unless winning_positions
+      return if winning_positions.empty?
       self[winning_positions.first]
     end
     
@@ -68,7 +68,7 @@ module TTT
         next unless board[pos1, 1] =~ /^(1|2)$/
         return [pos1+1, pos2+1, pos3+1]
       end
-      nil
+      []
     end
     
     def [](position)
