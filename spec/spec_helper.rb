@@ -1,3 +1,4 @@
+require 'bundler/bouncer'
 require 'ttt'
 
 def enumerator

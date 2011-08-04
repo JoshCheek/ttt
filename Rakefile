@@ -1,3 +1,5 @@
+require 'bundler/bouncer'
+
 task :environment do  
   $:.unshift File.expand_path('../lib', __FILE__)
   require 'ttt'

@@ -1,3 +1,5 @@
+require 'bundler/bouncer'
+
 $LOAD_PATH << File.expand_path('../../../lib', __FILE__)
 
 # lib files
