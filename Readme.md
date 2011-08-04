@@ -1,7 +1,7 @@
 T(ic) T(ac) T(oe)
 =================
 
-TTT is a Tic Tac Toe lib, as well and two interfaces to play it. Check out the [video][video] showing it off. 
+TTT is a Tic Tac Toe lib, and two interfaces to play it. Check out the [video][video] showing it off. 
 
 
 Features
