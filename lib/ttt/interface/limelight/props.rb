@@ -6,5 +6,5 @@ controls do
 end
 
 squares do
-  (1..9).each { |n| square :styles => "square#{n}", :text => n.to_s }
+  (1..9).each { |n| square :id => "square#{n}", :styles => "square#{n}" }
 end
