@@ -19,3 +19,4 @@ module TTT
 end
 
 require 'ttt/interface/cli'
+require 'ttt/interface/limelight'
