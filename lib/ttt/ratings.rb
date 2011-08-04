@@ -54,8 +54,31 @@ module TTT
   end
 
   
+  
+  
+  # Have to do this silly song and dance in order to work on 1.8.7
+  # which is what JRuby is currently running, which powers Limelight, which I want to use as an interface
+  ratinsgs_default_proc = lambda do |boards, board|
+    
+    # Handle congruent boards
+    Game.each_congruent board do |congruent_board|
+      return boards[congruent_board] if boards.has_key? congruent_board
+    end
+    
+    # This shouldn't ever happen, but if it does,
+    # We know what to do anyway, so do it rather than blowing up
+    tree = Rating.new board
+    boards[board] = {
+      1 => tree.rating_for(1),
+      2 => tree.rating_for(2),
+    }
+  end
+  
+  RATINGS = Hash.new(&ratinsgs_default_proc)
+  
+  # the contents of RATINGS
   # Calculated with the above code in the rake task script:ratings
-  RATINGS = {
+  {
     "000000000"=>{1=>0.9678112139917696, 2=>0.7774838330393885},
     "100000000"=>{1=>0.9884052579365079, 2=>0.8714285714285716},
     "120000000"=>{1=>1, 2=>-1},
@@ -821,23 +844,6 @@ module TTT
     "000010000"=>{1=>0.9828869047619047, 2=>0.7238095238095238},
     "200010000"=>{1=>0.9657738095238095, 2=>0.7238095238095238},
     "020010000"=>{1=>1, 2=>-1}
-  }
-  
-  
-  RATINGS.default_proc = lambda do |boards, board|
-    
-    # Handle congruent boards
-    Game.each_congruent board do |congruent_board|
-      return boards[congruent_board] if boards.has_key? congruent_board
-    end
-    
-    # This shouldn't ever happen, but if it does,
-    # We know what to do anyway, so do it rather than blowing up
-    tree = Rating.new board
-    boards[board] = {
-      1 => tree.rating_for(1),
-      2 => tree.rating_for(2),
-    }
-  end
+  }.each_pair { |k, v| RATINGS[k] = v }
   
 end
