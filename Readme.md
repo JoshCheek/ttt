@@ -33,4 +33,4 @@ Author
 
 [limelight]:  http://limelight.8thlight.com/
 [joshcheek]:  http://joshcheek.com/
-[video]:      https://github.com/JoshCheek/ttt
+[video]:      http://vimeo.com/27281370
