@@ -244,7 +244,7 @@ module TTT
       let(:rotations) { %w[abcdefghi gdahebifc ihgfedcba cfibehadg] }
       subject { Game.each_rotation rotations.first }
       context 'when not passed a block' do
-        it { should be_an_instance_of Enumerator }
+        it { should be_an_instance_of enumerator }
         its(:to_a) { should == rotations }
       end
       context 'when passed a block' do
@@ -269,7 +269,7 @@ module TTT
       let(:congruents) { %w[abcdefghi gdahebifc ihgfedcba cfibehadg ghidefabc adgbehcfi cbafedihg ifchebgda ] }
       context 'when not passed a block' do
         subject { Game.each_congruent congruents.first }
-        it { should be_an_instance_of Enumerator }
+        it { should be_an_instance_of enumerator }
         its(:to_a) { should == congruents }
       end
       context 'when passed a block' do

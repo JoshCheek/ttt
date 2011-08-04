@@ -23,7 +23,7 @@ module TTT
     end
     
     def over?
-      winner || board.each_char.all? { |char| char == '1' || char == '2' }
+      winner || board.split(//).all? { |char| char == '1' || char == '2' }
     end
     
     def status(player_number)
@@ -44,7 +44,11 @@ module TTT
     
     def available_moves
       return [] if over?
-      board.each_char.with_index(1).select { |char, _| char != '1' && char != '2' }.map(&:last)
+      to_return = []
+      board.split(//).each_with_index do |char, index| 
+        to_return << index.next if char != '1' && char != '2'
+      end
+      to_return
     end
     
     def pristine_mark(position)
@@ -59,9 +63,9 @@ module TTT
     
     def winning_positions
       winning_states do |pos1, pos2, pos3|
-        next unless board[pos1] == board[pos2]
-        next unless board[pos1] == board[pos3]
-        next unless board[pos1] =~ /^(1|2)$/
+        next unless board[pos1, 1] == board[pos2, 1]
+        next unless board[pos1, 1] == board[pos3, 1]
+        next unless board[pos1, 1] =~ /^(1|2)$/
         return [pos1+1, pos2+1, pos3+1]
       end
       nil

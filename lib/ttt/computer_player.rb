@@ -30,7 +30,7 @@ module TTT
         new_game = game.pristine_mark move
         moves << [ move, rate(new_game), new_game ]
       end
-      moves.sort_by! { |move, rating, new_game| -rating } # highest rating first
+      moves = moves.sort_by { |move, rating, new_game| -rating } # highest rating first
       moves.each     { |move, rating, new_game| yield move, rating, new_game }
     end
     
@@ -51,7 +51,7 @@ module TTT
       # it rates losing this turn the same as losing in 3 turns
       if moves_by_rating.all? { |move, rating, game| rating == -1 }
         Game.winning_states do |position1, position2, position3|
-          a, b, c = board[position1-1].to_i, board[position2-1].to_i, board[position3-1].to_i
+          a, b, c = board[position1-1, 1].to_i, board[position2-1, 1].to_i, board[position3-1, 1].to_i
           if a + b + c == opponent_number * 2
             return a.zero? ? position1 : b.zero? ? position2 : position3
           end

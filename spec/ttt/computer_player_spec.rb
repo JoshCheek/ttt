@@ -64,7 +64,7 @@ module TTT
       let(:computer) { ComputerPlayer.new game }
       subject        { computer.moves_by_rating }
       context 'when invoked without a block' do
-        it { should be_an_instance_of Enumerator }
+        it { should be_an_instance_of enumerator }
       end
       context 'when invoked with a block' do
         it 'yields available moves and ratings' do
